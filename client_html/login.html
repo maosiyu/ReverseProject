@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>小蜜蜂数据库逆向生成工具-登入页面</title>
+    <link rel="stylesheet" href="../APP_ReverseProject/public/stylesheets/reset.css">
+    <link rel="stylesheet" href="../APP_ReverseProject/public/stylesheets/dbGeneratorStyle.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../APP_ReverseProject/public/images/mifeng.ico"/>
+</head>
+<body class="scroll-all" ng-app="loginApp" ng-controller="loginCtrl" ng-style="bodyStyle">
+<div class="db-body">
+    <div class="login-box">
+        <!--提示框-->
+        <div class="db-dialog" id="popupId" ng-click="popup()"></div>
+        <!--小蜜蜂-->
+        <div class="login-banner" id="loginId" ng-click="login()"></div>
+        <!--登录提示-->
+        <div class="login-cucsr" id="loginCucsrId"></div>
+        <!--蜂巢-->
+        <div class="login-honeycomb" id="test" ng-click="testLogin()"></div>
+        <div class="db-cl"></div>
+    </div>
+    <!--进度条-->
+    <div class="db-content-progress-box">
+        <div class="db-content-progress" ng-class="{true:'db-fullwidth', false:''}[progressClass]">
+            <span class="db-progress"></span>
+        </div>
+    </div>
+    <div class="commons-wrap">
+        <div class="logo-box">
+            <div class="db-shaozi db-fl"></div>
+            <div class="db-guanzi db-fl"></div>
+            <span class="db-cl"></span>
+        </div>
+    </div>
+    <div class="db-article">
+        <div class="db-title"></div>
+        <div class="db-context-box db-font">
+            <ul>
+                <li><input class="db-font" type="text" ng-model="settings.host" placeholder="输入数据库IP地址"></li>
+                <li><input class="db-font" type="text" ng-model="settings.port" placeholder="请输入端口号"></li>
+                <li><input class="db-font" type="text" ng-model="settings.database" placeholder="请输入端库名"></li>
+                <li><input class="db-font" type="text" ng-model="settings.user" placeholder="数据库用户名"></li>
+                <li><input class="db-font" type="text" ng-model="settings.password" placeholder="数据库密码"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--============================================================================================================================================-->
+<script src="../APP_ReverseProject/node_modules/angular/angular.min.js"></script>
+<script>
+    // 指定ng-app
+    var ngApp = angular.module('loginApp', []);
+    // 指定ng-controller
+    ngApp.controller('loginCtrl', function ($scope, $http) {
+
+        $scope.bodyStyle = {
+            left: '0vw'
+        }
+
+        $scope.settings = {
+            host: '10.32.156.159',
+            port: '3306',
+            user: 'dlfc',
+            database: 'dlfc',
+            password: 'dlfc'
+        }
+
+        /**
+         * 连接测试按钮点击事件
+         */
+        $scope.testLogin = function () {
+            // 加载进度条
+            $scope.progressClass = true;
+
+            $http({
+                url: 'http://localhost:8000/connectDB',
+                data: $scope.settings,
+                method: 'POST'
+            }).then(function successCallback(response) {
+                // 连接成功
+                if (response.data.code)
+                    connectSuccess(response.data.message);
+                // 连接失败
+                else
+                    connectFail(response.data.message);
+            }, function errorCallback(err) {
+                // 连接失败
+                if (err.status == -1) {
+                    connectFail(' 连接失败, 服务器未开启！');
+                }
+                console.error('errorMessage =:|======> ' + JSON.stringify(err));
+            });
+        }
+
+    });
+
+    //    =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //    =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //    =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+    // 弹窗
+    var popup = document.getElementById('popupId');
+    popup.style.visibility = 'hidden';
+
+    // 登录小蜜蜂
+    var login = document.getElementById('loginId');
+    login.style.visibility = 'hidden';
+    login.onclick = function () {
+        window.location.href = 'db-context.html';
+    }
+
+    // 登录提示
+    var loginCucsr = document.getElementById('loginCucsrId');
+    loginCucsr.style.visibility = 'hidden';
+
+    var getScope = function (ctrlName) {
+        return angular.element(document.querySelector('[ng-controller=' + ctrlName + ']')).scope();
+    }
+
+    /**
+     * 数据库连接成功
+     */
+    var connectSuccess = function (data) {
+        popup.style.visibility = 'visible';
+        popup.innerHTML = '<i></i><span>' + data + '</span>';
+        login.style.visibility = 'visible';
+        loginCucsr.style.visibility = 'visible';
+        // 3秒后消失
+        setTimeout(function () {
+            popup.style.visibility = 'hidden';
+        }, 3000);
+    }
+
+    /**
+     * 数据库连接失败
+     */
+    var connectFail = function (data) {
+        popup.style.visibility = 'visible';
+        popup.innerHTML = '<i></i><span>' + data + '</span>';
+        login.style.visibility = 'hidden';
+        loginCucsr.style.visibility = 'hidden';
+        // 隐藏进度条
+        getScope('loginCtrl').progressClass = false;
+        // 3秒后消失
+        setTimeout(function () {
+            popup.style.visibility = 'hidden';
+        }, 3000);
+    }
+
+</script>
+</body>
+</html>

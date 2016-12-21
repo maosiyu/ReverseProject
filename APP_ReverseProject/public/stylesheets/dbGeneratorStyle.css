@@ -1,0 +1,432 @@
+body {
+    background: white;
+}
+
+.db-body {
+    width: 100vw;
+    height: 100vh;
+    background: #161616 url("../images/pattern_40.gif") top left repeat;
+    z-index: 0;
+}
+
+.fullscreen {
+    width: 100%;
+}
+
+.db-font {
+    font-family: "微软雅黑";
+}
+
+.commons-wrap {
+    width: 100%;
+}
+
+.db-fl {
+    float: left;
+    display: block;
+}
+
+.db-cl {
+    clear: both;
+}
+
+/*LOGO的样式*/
+.logo-box {
+    bottom: 3%;
+    left: 1%;
+    width: 312px;
+    height: 220px;
+    position: absolute;
+}
+
+.db-shaozi {
+    position: relative;
+    width: 157px;
+    height: 220px;
+    background: url("../images/taideng_r1_c1.png") no-repeat;
+}
+
+.db-guanzi {
+    position: relative;
+    bottom: -47px;
+    left: -50px;
+    width: 155px;
+    height: 174px;
+    background: url("../images/beizi_r1_c1.png") no-repeat;
+}
+
+.db-title {
+    width: 360px;
+    height: 147px;
+    background: url("../images/wenzi.png") no-repeat;
+    margin: 40px auto;
+}
+
+.db-article {
+    width: 1000px;
+    min-height: 500px;
+    margin: 40px auto;
+    border-radius: 3px;
+}
+
+.db-context-box {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #FFBF00;
+    border-radius: 5px;
+    border: 3px solid white;
+}
+
+.db-context-box ul {
+    padding: 30px 20%;;
+
+}
+
+.db-context-box ul li {
+    width: 100%;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.db-context-box ul li:last-child {
+    margin-bottom: 0px;
+}
+
+input[type="text"], input[type="reset"], input[type="submit"] {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    border: 2px solid #FF7A4D;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    display: block;
+}
+
+.db-context-box ul li > span {
+    margin-left: 20px;
+}
+
+/*按钮组*/
+input[type="button"], input[type="reset"], input[type="submit"] {
+    width: 80px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+input[type="button"] {
+    background: white;
+}
+
+input[type="button"]:hover {
+    background: lightcyan;
+}
+
+input[type="reset"] {
+    background: limegreen;
+    color: white;
+}
+
+input[type="reset"]:hover {
+    background: darkgrey;
+    color: white;
+}
+
+input[type="submit"] {
+    background: rgba(19, 182, 246, 0.92);
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background: rgba(6, 155, 214, 1);
+    color: white;
+}
+
+.db-content-progress-box {
+    width: 100%;
+    height: 20px;
+    margin-top: 20px;
+}
+
+.db-content-progress {
+    width: 100%;
+    height: 5px;
+    background: #000;
+}
+
+.db-fullwidth .db-progress {
+    width: 100%;
+    height: 1px;
+    margin: 2px 0;
+    background: #e7a23c;
+    position: absolute;
+    box-shadow: 0px 0px 10px 1px rgba(0, 198, 255, 0.7);
+    /*-webkit-transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);*/
+    /*-moz-animation: fullexpand 1s ease-in;*/
+    -moz-animation: fullexpand 3s cubic-bezier(.31, .89, .68, 1.00);
+    -webkit-animation: fullexpand 3s cubic-bezier(.31, .89, .68, 1.00);
+}
+
+@-moz-keyframes fullexpand {
+    0% {
+        width: 0px;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@-webkit-keyframes fullexpand {
+    0% {
+        width: 0px;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.login-box {
+    position: relative;
+    width: 100vw;
+    height: 80px;
+    /*margin-top: 10px;*/
+}
+
+.login-box .login-banner {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    background: url("../images/5-01.png") no-repeat;
+    width: 80px;
+    height: 80px;
+    transition: width 2s, height 2s;
+    -moz-transition: width 2s, height 2s, -moz-transform 2s;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+    -o-transition: width 2s, height 2s, -o-transform 2s;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.login-box .login-banner:hover {
+    z-index: 999;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    cursor: pointer;
+}
+
+.login-box .login-honeycomb {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    right: 196px;
+    background: url("../images/4-01_r1_c1.png") no-repeat;
+    z-index: 1;
+    cursor: po;
+}
+
+.scroll-all {
+    position: absolute;
+    left: -100vw;
+    transition: left 1s;
+    -moz-transition: left 1s; /* Firefox 4 */
+    -webkit-transition: left 1s; /* Safari and Chrome */
+    -o-transition: left 1s; /* Opera */
+}
+
+.scroll-other {
+    position: absolute;
+    bottom: 100vh;
+    transition: bottom 1s;
+    -moz-transition: bottom 1s; /* Firefox 4 */
+    -webkit-transition: bottom 1s; /* Safari and Chrome */
+    -o-transition: bottom 1s; /* Opera */
+}
+
+.db-context-body {
+    width: 100vw;
+    min-width: 1024px;
+    height: 100vh;
+    background: url("../images/1-01.png") top left repeat;
+}
+
+/*textarea样式*/
+.db-textarea-box-normal {
+    padding: 40px 30px 20px 30px;
+    width: 40%;
+    float: left;
+}
+
+.db-textarea-box-small {
+    padding: 40px 30px 20px 30px;
+    width: 20%;
+    float: left;
+}
+
+.db-textarea {
+    width: 100%;
+    height: 400px;
+    border: 6px solid #3eacc3;
+    background: rgba(98, 239, 90, 0.38);
+    border-radius: 5px;
+    font-size: 18px;
+    color: white;
+    overflow-x: hidden;
+}
+
+.db-textarea-small {
+    width: 100%;
+    height: 200px;
+    border: 6px solid #3eacc3;
+    background: rgba(98, 239, 90, 0.38);
+    border-radius: 5px;
+    font-size: 18px;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* 文本溢出显示省略号 */
+.db-textarea-ellipsis {
+    white-space: nowrap;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+}
+
+.db-textarea-text-center {
+    display: inline-block;
+    height: 200px;
+    line-height: 200px !important;
+    text-align: center;
+    font-size: 50px;
+    margin: 0 !important;
+    /*vertical-align: middle;*/
+}
+
+.db-dialog {
+    background: url('../images/label.png') no-repeat;
+    height: 47px;
+    width: 235px;
+    opacity: 1;
+    position: absolute;
+    right: 270px;
+    top: 5px;
+    z-index: 10;
+    color: white;
+    text-align: center;
+    line-height: 47px;
+    padding: 0 18px;
+    display: block;
+}
+
+.db-dialog i {
+    background: url('../images/message.png') no-repeat center;
+    width: 18px;
+    height: 12px;
+    display: inline-block;
+    position: relative;
+    right: 20px;
+    top: 2px;
+}
+
+.login-cucsr {
+    width: 50px;
+    height: 50px;
+    background: url('../images/login.gif') no-repeat center;
+    position: absolute;
+    z-index: 10;
+    right: 79px;
+    top: 74px;
+}
+
+.db-textarea span, .db-textarea-small span {
+    line-height: 40px;
+}
+
+.db-textarea span:nth-child(2n), .db-textarea-small span:nth-child(2n) {
+    color: rgba(232, 151, 30, 1);
+    font-weight: 800;
+}
+
+.input-group {
+    width: 40%;
+}
+
+.input-group li {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.db-descri {
+    padding: 40px 44px 20px 30px;
+    width: 18%;
+    float: left;
+}
+
+.db-descri > div > span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.btn-group {
+    margin: 40px 30px 20px 30px;
+}
+
+.btn-group input {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.db-arround {
+    animation: rotation 2.5s ease-in-out;
+    -webkit-animation: rotation 2.5s ease-in-out;
+    -moz-animation: rotation 2.5s ease-in-out;
+}
+
+@keyframes rotation {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+
+}
+
+@-webkit-keyframes rotation {
+
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
+
+}
+
+@-moz-keyframes rotation {
+
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(-360deg);
+    }
+
+}
+
+#tableInfoId {
+
+}

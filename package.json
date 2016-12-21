@@ -1,0 +1,71 @@
+{
+  /* 必填项 main (string) : node-webkit启动的时候默认打开的页面 */
+  "main": "./client_html/login.html",
+  /* 必填项 nam(string):package文件的名称，唯一值，不允许有空格，不允许有大写，允许'.'或者'-','_'字符 */
+  "name": "nw-reverse-project",
+  "description": "reverse-project node-webkit",
+  /* nodejs(boolean): 设置是否在webkit内核中启动nodejs,false的时候会禁用掉nodejs */
+  "nodejs": true,
+  /* node-main(string):指定项目启动的时候，启用node.js文件的地址 */
+  "node-main": "./APP_ReverseProject/bin/www",
+  "version": "0.1.0",
+  "keywords": [
+    "demo",
+    "node-webkit"
+  ],
+  /* window(object): 控制主窗口的显示风格 */
+  "window": {
+    /* show(boolean):默认为true,当为false的时候，窗口会隐藏在任务栏 */
+    "show": true,
+    /* kiosk(boolean): 是否使用kiosk模式，（对于kiosk模式，是全屏显示，且阻止用户关闭应用（确保一种方式去离开kiosk模式）。这个模式用于保护在正常途径关闭应用。） */
+    "kiosk": false,
+    /* title(string):窗口的标题 */
+    "title": "node-webkit demo",
+    /* frame(boolean):是否显示窗口的最外层的框架 */
+    "frame": true,
+    /* toolbar(boolean): 是否显示导航工具栏 */
+    "toolbar": true,
+    /* positon(string): (null/center/mouse) 窗口的显示位置 */
+    "position": "center",
+    /* resizeable(boolean): 设置窗口是否可调整大小 */
+    "resizeable": true,
+    /* fullscreen(boolean):是否全屏显示 */
+    "fullscreen": false,
+    /* always-on-top(boolean):是否设置窗口一直在最前端 */
+    "always-on-top": true,
+    /* show_in_taskbar(boolean):默认为true: 是否显示任务栏 */
+    "show_in_taskbar": true,
+    "width": 1100,
+    "height": 1024,
+    "min_width": 1100,
+    "min_height": 0,
+    "max_width": 1100,
+    "max_height": 0
+  },
+  /* webkit(object): 控制 webkit的特性的开/关 */
+  "webkit": {
+    "plugin": true
+    /* plugin(boolean):默认为false 是否允许加载额外的浏览器插件：flase等
+       java(boolean):默认为false,是否允许加载 java应用。
+       page-cache(boolean):默认为false,是否允许页面缓存。
+       user-agent(string):重写http 请求的 User-Agent头
+       1.%name: 替换name字段（配置文件里面配置的）
+       2.%ver:替换version字段（配置文件里面配置的）
+       3.%nwver:替换node-webkit的版本号
+       4.%webkit_ver:替换webkit引擎的版本号
+       5.%osinfo:替换在user agent 中的OS和CPU信息。
+       node-remote(string): 启动远程调用节点页面。
+       chrominum-args(string): 设置 chromium参数。
+       js-flags(string): 给js引擎传递特殊指令
+       inject-js-start/inject-js-end: js文件注入
+       snapshot(string):指定路径快照。
+       dom_storage_quota(int):dom存储。
+       no_edit_menu(boolean): 只作用于MAC ,默认为false, 是否不显示 编辑菜单。
+       其他属性：
+       description(string):描述。
+       version(string): 版本号
+       keywords(array/string):关键字
+       maintainers(array):
+     */
+  }
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>小蜜蜂逆向生成工具--生成java类页面</title>
+    <link rel="stylesheet" href="../APP_ReverseProject/public/stylesheets/reset.css">
+    <link rel="stylesheet" href="../APP_ReverseProject/public/stylesheets/dbGeneratorStyle.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../APP_ReverseProject/public/images/mifeng.ico"/>
+</head>
+<body class="scroll-other" ng-app="contextApp" ng-controller="contextCtrl" ng-style="bodyStyle">
+<div class="db-context-body">
+    <div class="fullscreen">
+        <div class="db-textarea-box-normal db-arround">
+            <div class="db-textarea" id="tableInfoId" ng-model="tableInfo" contentEditable="true"></div>
+        </div>
+        <div class="db-textarea-box-normal db-arround">
+            <div class="db-textarea db-textarea-ellipsis" id="outputInfoId" ng-model="outputInfo"
+                 contentEditable="false"></div>
+        </div>
+        <div class="db-fl"></div>
+    </div>
+    <div class="fullscreen">
+        <ul class="input-group db-textarea-box-small">
+            <li>
+                <input class="db-font" type="text" ng-model="projectPath" placeholder="项目工程路径！例如：com/baidu/project">
+            </li>
+            <li><input class="db-font" type="text" ng-model="outputPath" placeholder="请指定生成文件路径！"></li>
+            <div class="btn-group">
+                <input type="button" ng-click="generate()" value="生成">
+            </div>
+        </ul>
+        <div class="db-descri">
+            <div class="db-textarea-small" id="systemInfoId" ng-model="systemInfo" contentEditable="false"></div>
+        </div>
+        <div class="db-descri">
+            <div class="db-textarea-small" contentEditable="false"
+                 style="text-align: center;vertical-align: middle;">
+                    <span class="db-textarea-text-center">
+                        <span id="timerId">0</span>
+                        <span style="color: rgba(232, 151, 30, 1); font-size: 30px;">ms</span>
+                    </span>
+            </div>
+        </div>
+        <div class="db-cl"></div>
+    </div>
+</div>
+<!--============================================================================================================================================-->
+<script src="../APP_ReverseProject/node_modules/angular/angular.min.js"></script>
+<script src="./H5ws.js" type="text/javascript"></script>
+<script>
+
+    // 指定ng-app
+    var ngApp = angular.module('contextApp', []);
+    // 指定ng-controller
+    ngApp.controller('contextCtrl', function ($scope, $http) {
+
+        $scope.bodyStyle = {
+            bottom: '0vw'
+        }
+
+        var tableInfo = document.getElementById('tableInfoId');
+        var outputInfo = document.getElementById('outputInfoId');
+        var systemInfo = document.getElementById('systemInfoId');
+        var timer = document.getElementById('timerId');
+
+        var timeStart;
+
+        /**
+         * 开启长连接 为日志输出做准备
+         */
+        startWebSocket(function (message) {
+            outputInfo.appendChild(getSpanBlock(message));
+            // 让滚动条保持在最底端
+            outputInfo.scrollTop = outputInfo.scrollHeight;
+            // 文件生成结束时间
+            var timeEnd = new Date().getMilliseconds();
+            timer.innerHTML = timeEnd - timeStart;
+
+        }, function (msg) {
+            systemInfo.appendChild(getSpanBlock(msg));
+        });
+
+//        timer.innerHTML = '<span class="db-textarea-text-center" >' + (1600) + '<span style="color: rgba(232, 151, 30, 1); font-size: 30px;">ms</span></span>';
+
+
+        var tableData;
+
+        /**
+         * 获取数据库所有表
+         */
+        $http({
+            url: 'http://localhost:8000/getTable',
+            method: 'GET'
+        }).then(function successCallback(response) {
+            // 连接成功
+            if (response.data.code) {
+                tableData = response.data.data;
+                var tables = JSON.parse(tableData)
+                for (var i = 0; i < tables.length; i++) {
+                    tableInfo.appendChild(getSpanBlock('┈━═☆┠ ' + tables[i].tbName + '<span style="float: right;">' + tables[i].tbComment + ' ┨☆═━┈' + '</span>', i));
+                }
+                tableInfo.scrollTop = tableInfo.scrollHeight;
+                //
+                systemInfo.appendChild(getSpanBlock(response.data.message));
+                //
+                systemInfo.appendChild(getSpanBlock('共 ┅☞ ' + tables.length + ' ☜┅ 张表'));
+            } else {
+                // 连接失败
+                systemInfo.appendChild(getSpanBlock(response.data.message));
+            }
+        }, function errorCallback(err) {
+            // 连接失败
+            systemInfo.appendChild(getSpanBlock('init getTable =:|======> ' + err));
+        });
+
+        /**
+         * 生成按钮
+         */
+        $scope.generate = function () {
+
+            $http({
+                url: 'http://localhost:8000/generate',
+                data: {
+                    outputFilePath: $scope.outputPath,
+                    projectPath: $scope.projectPath,
+                    tables: tableData
+                },
+                method: 'POST'
+            }).then(function successCallback(response) {
+                systemInfo.appendChild(getSpanBlock(response.data.message));
+                // 让滚动条保持在最底端
+                systemInfo.scrollTop = systemInfo.scrollHeight;
+                // 文件生成开始时间
+                timeStart = new Date().getMilliseconds();
+            }, function errorCallback(err) {
+                systemInfo.appendChild(getSpanBlock('generate =:|======> ' + err));
+            });
+        }
+
+    });
+
+    var getSpanBlock = function (text, i) {
+        var span = document.createElement('span');
+        span.innerHTML = text;
+        span.style = 'display:block;'
+        span.setAttribute('index', i);
+        return span;
+    }
+</script>
+</body>
+</html>
